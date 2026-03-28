@@ -80,7 +80,6 @@ const Navbar = ({user:propUser , onLogout}) => {
                             </div>
                             <ChevronDown className={navbarStyles.chevronIcon(menuOpen)}/>
                         </button>
-
                         {/* dropdown menu  */}
                         {menuOpen && (
                             <div className={navbarStyles.dropdownMenu}>
@@ -115,7 +114,6 @@ const Navbar = ({user:propUser , onLogout}) => {
                                         <LogOut className='w-4 h-4'/>
                                         <span>Log Out</span>
                                     </button>
-
                                 </div>
                             </div>
                         )}

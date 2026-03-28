@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route element={<Layout onLogout={onLogout} user = {user} />}>
+        <Route element={<Layout/>}>
           <Route path="/" element={<Dashboard/>}/>
         </Route>
       </Routes>
