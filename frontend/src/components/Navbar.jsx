@@ -14,6 +14,11 @@ const Navbar = ({user:propUser , onLogout}) => {
         name : "",
         email :"",
     })
+    useEffect(() => {
+        if (propUser) {           
+            setUser(propUser);
+        }
+   }, [propUser]);
     //to fetch the data from server
     useEffect(()=>{
         const fetchUserData = async () => {

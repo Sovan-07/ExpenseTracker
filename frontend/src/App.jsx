@@ -16,10 +16,14 @@ const BACKEND_URL = `${import.meta.env.VITE_BACKEND_URL}api`;
 
 //get transaction from localstorage
 const getTransactionFromStorage = () => {
-  const saved = localStorage.getItem("transactions");
-  return saved ? JSON.parse(saved) : [];
+  try {
+    const saved = localStorage.getItem("transactions");
+    return saved ? JSON.parse(saved) : [];
+  } catch (e) {
+    console.error("Error parsing transactions from storage:", e);
+    return [];
+  }
 };
-
 //to protect the routes
 const ProtectedRoute = ({ user, children }) => {
   const localToken = localStorage.getItem("token");
@@ -43,7 +47,7 @@ const ScrollToTop = () => {
 function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState(getTransactionFromStorage);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   //to save the token in localStorage
@@ -124,7 +128,7 @@ function App() {
           }
         }
       } catch (e) {
-        console.error("error bootstraping auth", e);
+        console.error("error bootstrapping auth", e);
       } finally {
         setIsLoading(false);
         try {
@@ -212,5 +216,6 @@ function App() {
     </>
   );
 }
+
 
 export default App;

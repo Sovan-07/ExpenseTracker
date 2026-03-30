@@ -79,11 +79,7 @@ const Login = ({ onLogin, API_URL = BACKEND_URL }) => {
       setPassword("");
     } catch (err) {
       console.error("Login error:", err?.response || err);
-      const serverMsg =
-        err.response?.data?.message ||
-        (err.response?.data ? JSON.stringify(err.response.data) : null) ||
-        err.message ||
-        "Login failed";
+      const serverMsg = err.response?.data?.message || "Login failed";
       setError(serverMsg);
     } finally {
       setIsLoading(false);
@@ -124,78 +120,110 @@ const Login = ({ onLogin, API_URL = BACKEND_URL }) => {
           )}
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
-                <label htmlFor="email" className={loginStyles.label}>
-                    Email Address
-                </label>
-                <div className={loginStyles.inputContainer}>
-                    <div className={loginStyles.inputIcon}>
-                        <Mail className="w-5 h-5"/>
-                    </div>
-                    <input type="email" id="email"
-                    value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
-                    className={loginStyles.input} placeholder="your@example.com" required />
+              <label htmlFor="email" className={loginStyles.label}>
+                Email Address
+              </label>
+              <div className={loginStyles.inputContainer}>
+                <div className={loginStyles.inputIcon}>
+                  <Mail className="w-5 h-5" />
                 </div>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={loginStyles.input}
+                  placeholder="your@example.com"
+                  required
+                />
+              </div>
             </div>
             <div className="mb-6">
-                <label htmlFor="password" className={loginStyles.label}>
-                    Password
-                </label>
-                <div className={loginStyles.inputContainer}>
-                    <div className={loginStyles.inputIcon}>
-                        <Lock className="w-5 h-5"/>
-                    </div>
-                    <input type={showPassword?"text":"password"}id="password"
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                    className={loginStyles.input} placeholder="password" required />
-
-                    <button type="button" onClick={()=>setShowPassword(!showPassword)}
-                        className={loginStyles.passwordToggle}>
-                            {showPassword?(
-                                <EyeOff className="h-5 w-5"/>
-                            ):(
-                                <Eye className="h-5 w-5"/>
-                            )}
-                    </button>
+              <label htmlFor="password" className={loginStyles.label}>
+                Password
+              </label>
+              <div className={loginStyles.inputContainer}>
+                <div className={loginStyles.inputIcon}>
+                  <Lock className="w-5 h-5" />
                 </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={loginStyles.input}
+                  placeholder="password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className={loginStyles.passwordToggle}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </div>
             <div className={loginStyles.checkboxContainer}>
-                <input type="checkbox" id="remember"
-                    checked={rememberMe}
-                    onChange={(e)=>setRememberMe(e.target.checked)}
-                    className={loginStyles.checkbox} required 
-                />
-                <label htmlFor="remember" className={loginStyles.checkboxLabel}>
-                    Remember Me
-                </label>
+              <input
+                type="checkbox"
+                id="remember"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className={loginStyles.checkbox}
+              />
+              <label htmlFor="remember" className={loginStyles.checkboxLabel}>
+                Remember Me
+              </label>
             </div>
-            <button type="submit" disabled={isLoading}
-                className={`${loginStyles.button} ${
-                    isLoading?loginStyles.buttonDisabled:""
-                }`}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={`${loginStyles.button} ${
+                isLoading ? loginStyles.buttonDisabled : ""
+              }`}
             >
-                {isLoading?(
-                    <>
-                  <svg className={loginStyles.spinner} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              {isLoading ? (
+                <>
+                  <svg
+                    className={loginStyles.spinner}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
                   </svg>
                   Signing in...
                 </>
-                ):(
-                    "Sign in"
-                )}
+              ) : (
+                "Sign in"
+              )}
             </button>
           </form>
           <div className={loginStyles.signUpContainer}>
             <p className={loginStyles.signUpText}>
-                Don't have an account {" "}
-                <Link to='/signup' className={loginStyles.signUpLink}>
-                    Create One
-                </Link>
+              Don't have an account{" "}
+              <Link to="/signup" className={loginStyles.signUpLink}>
+                Create One
+              </Link>
             </p>
-                
           </div>
         </div>
       </div>
