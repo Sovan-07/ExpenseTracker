@@ -10,10 +10,15 @@ const Navbar = ({user:propUser , onLogout}) => {
     const navigate = useNavigate();
     const menuRef = useRef();
     const [menuOpen , setMenuOpen] = useState(false);
-    const user = propUser || {
+    const [user, setUser] = useState(propUser || {
         name : "",
         email :"",
-    }
+    })
+    useEffect(() => {
+        if (propUser) {           
+            setUser(propUser);
+        }
+   }, [propUser]);
     //to fetch the data from server
     useEffect(()=>{
         const fetchUserData = async () => {
@@ -25,7 +30,7 @@ const Navbar = ({user:propUser , onLogout}) => {
                     headers:{Authorization : `Bearer ${token}`}
                 });
                 const userData = response.data.user||response.data;
-                setUser(userData);
+                setUser(userData)
             } catch (e) {
                 console.error("Failed to load profile" , e)
             }
