@@ -149,8 +149,8 @@ const AddTransactionModal = ({
                 </select>
             </div>
             <div>
-                <label htmlFor="" className={modalStyles.label}>Date</label>
-                <input type="date" value={newTransaction.date} 
+                <label htmlFor="dateAdded" className={modalStyles.label}>Date</label>
+                <input type="date" id="dateAdded" value={newTransaction.date} 
                     onChange={(e)=>
                         setNewTransaction((prev)=>({ //must check later
                             ...prev,
