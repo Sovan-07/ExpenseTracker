@@ -68,9 +68,8 @@ const Dashboard = () => {
     transactions: outletTransactions = [],
     timeFrame = "monthly",
     setTimeFrame = () => {},
-    refreshTransactions,
+    refreshTransactions = async () => {},
   } = useOutletContext();
-
   const [showModal, setShowModal] = useState(false);
   const [gaugeData, setGaugeData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -483,7 +482,7 @@ const Dashboard = () => {
                 <BarChart2 className="w-4 h-4" />
                 <span>
                   {displayIncome > 0
-                    ? Math.round(displaySavings / displayIncome) * 100
+                    ? Math.round((displaySavings / displayIncome) * 100)
                     : 0}{" "}
                   % of income
                 </span>
@@ -554,7 +553,7 @@ const Dashboard = () => {
               </Pie>
               <Tooltip
                 formatter={(value) => [
-                  `$${Math.round(value).toLocaleString()}`,
+                  `₹${Math.round(value).toLocaleString()}`,
                   "Amount",
                 ]}
                 contentStyle={dashboardStyles.tooltipContent}
@@ -617,7 +616,7 @@ const Dashboard = () => {
                   </div>
                   <div className={dashboardStyles.transactionAmount}>
                     <p className={dashboardStyles.incomeAmount}>
-                      +${Math.abs(transaction.amount).toLocaleString()}
+                      +₹{Math.abs(transaction.amount).toLocaleString()}
                     </p>
                     <p className={dashboardStyles.transactionDate}>
                       {new Date(transaction.date).toLocaleDateString()}
@@ -703,7 +702,7 @@ const Dashboard = () => {
                   </div>
                   <div className={dashboardStyles.transactionAmount}>
                     <p className={dashboardStyles.expenseAmount}>
-                      -${Math.abs(transaction.amount).toLocaleString()}
+                      -₹{Math.abs(transaction.amount).toLocaleString()}
                     </p>
                     <p className={dashboardStyles.transactionDate}>
                       {new Date(transaction.date).toLocaleDateString()}
