@@ -55,6 +55,7 @@ function App() {
   const navigate = useNavigate();
   //to save the token in localStorage
   const persistAuth = (userObj, tokenStr, remember = false) => {
+    console.log(token);
     try {
       if (remember) {
         if (userObj) localStorage.setItem("user", JSON.stringify(userObj));
