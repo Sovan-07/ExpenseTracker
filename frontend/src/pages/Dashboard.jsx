@@ -60,6 +60,7 @@ function toIsoWithClientTime(dateValue) {
   try {
     return new Date(dateValue).toISOString();
   } catch (err) {
+    console.log("error occured" , err)
     return new Date().toISOString();
   }
 }
