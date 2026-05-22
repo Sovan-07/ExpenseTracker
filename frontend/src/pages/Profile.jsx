@@ -333,7 +333,7 @@ const Profile = ({onUpdateProfile, onLogout }) => {
 
                         <button 
                             onClick={()=>setShowPasswordModal(true)}
-                            className={profileStyles.changeButton}
+                            className={`${profileStyles.changeButton} cursor-pointer`}
                             disabled={loading}
                         >
                             Change
