@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import img1 from '../assets/logo.png'
 import {ChevronDown, LogOut, User} from 'lucide-react'
 import axios from 'axios'
+import { clearAuthStorage, getAuthToken } from '../utils/authStorage'
 
 const BACKEND_URL = `${import.meta.env.VITE_BACKEND_URL}api`;
 const Navbar = ({user:propUser , onLogout}) => {
@@ -23,7 +24,7 @@ const Navbar = ({user:propUser , onLogout}) => {
     useEffect(()=>{
         const fetchUserData = async () => {
             try {
-                const token = localStorage.getItem("token")
+                const token = getAuthToken();
                 if(!token) return ;
 
                 const response = await axios.get(`${BACKEND_URL}/user/me` , {
@@ -43,7 +44,7 @@ const Navbar = ({user:propUser , onLogout}) => {
 
     const handleLogout = ()=> {
         setMenuOpen(false);
-        localStorage.removeItem('token');
+        clearAuthStorage();
         onLogout?.();
         navigate("/login");
     }

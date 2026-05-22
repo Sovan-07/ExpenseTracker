@@ -41,7 +41,7 @@ const BACKEND_URL = `${import.meta.env.VITE_BACKEND_URL}api`;
 
 const getAuthHeader = () => {
   const token =
-    localStorage.getItem("token") || localStorage.getItem("authToken");
+    localStorage.getItem("token") || localStorage.getItem("authToken")||sessionStorage.getItem("token")|| sessionStorage.getItem("authToken");
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 //To convert date to ISO timeline

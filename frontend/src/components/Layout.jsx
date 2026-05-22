@@ -5,6 +5,7 @@ import Sidebar from './Sidebar'
 import { Activity, ArrowDown, ArrowUp, Car, ChevronDown, ChevronUp, Clock, CreditCard, DollarSign, Gift, Home, IndianRupee, IndianRupeeIcon, Info, PieChart, PiggyBank, RefreshCw, ShoppingCart, TrendingUp, Utensils, Zap } from 'lucide-react';
 import axios from 'axios';
 import { Outlet } from 'react-router-dom';
+import { getAuthToken } from '../utils/authStorage';
 
 const API_BASE = `${import.meta.env.VITE_BACKEND_URL}api`;
 const CATEGORY_ICONS = {
@@ -62,7 +63,7 @@ const Layout = ({onLogout , user}) => {
   const fetchTransactions = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
+      const token = getAuthToken();
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
       const [incomeRes, expenseRes] = await Promise.all([
@@ -105,7 +106,7 @@ const Layout = ({onLogout , user}) => {
   //add a trunsaction
   const addTransaction = async (transaction) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = getAuthToken();
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const endpoint =
         transaction.type === "income" ? "income/add" : "expense/add";
@@ -123,7 +124,7 @@ const Layout = ({onLogout , user}) => {
   //update any transaction
   const editTransaction = async (id, transaction) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = getAuthToken();
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const endpoint =
         transaction.type === "income" ? "income/update" : "expense/update";
@@ -143,7 +144,7 @@ const Layout = ({onLogout , user}) => {
   //to delete a transaction
   const deleteTransaction = async (id, type) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = getAuthToken();
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const endpoint = type === "income" ? "income/delete" : "expense/delete";
       await axios.delete(`${API_BASE}/${endpoint}/${id}`, { headers });

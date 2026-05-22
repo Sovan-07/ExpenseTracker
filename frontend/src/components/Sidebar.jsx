@@ -12,6 +12,7 @@ import {
   User,
   X,
 } from "lucide-react";
+import { clearAuthStorage } from "../utils/authStorage";
 const MENU_ITEMS = [
   { text: "Dashboard", path: "/", icon: <Home size={20} /> },
   { text: "Income", path: "/income", icon: <ArrowUp size={20} /> },
@@ -48,7 +49,7 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [mobileOpen]);
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    clearAuthStorage();
     navigate("/login");
   };
   const toggleSideBar = () => setIsCollapsed((c) => !c);
